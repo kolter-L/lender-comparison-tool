@@ -11,6 +11,13 @@ import type {
  * Only `max_existing_debt_ratio` (9 blanks) and `special_requirements` (15 blanks) are nullable.
  */
 export interface LenderProgram {
+  /**
+   * Synthesised at parse time — the CSV has no id column. Unique within a loaded dataset
+   * even when two rows are byte-identical, which lender_name + program_type is not:
+   * a duplicated row would collide as a React key and merge in F24's analytics.
+   * Derived from the row's position, so it also names the CSV line for support questions.
+   */
+  id: string;
   /** csv: lender_name — 15 distinct lenders */
   lenderName: string;
   /** csv: program_type */

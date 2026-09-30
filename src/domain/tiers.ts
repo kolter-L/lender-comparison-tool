@@ -8,17 +8,23 @@ import type { CreditTier } from '../models/enums';
  * credit-tier soft miss.
  */
 
+const RANK: Record<CreditTier, number> = {
+  Excellent: 3,
+  Good: 2,
+  Fair: 1,
+};
+
 /** Higher rank is a stronger tier. */
 export function tierRank(tier: CreditTier): number {
-  throw new Error('tiers.tierRank not implemented');
+  return RANK[tier];
 }
 
 /** True when the borrower's tier meets or exceeds the program's required tier. */
 export function meetsTier(borrowerTier: CreditTier, requiredTier: CreditTier): boolean {
-  throw new Error('tiers.meetsTier not implemented');
+  return tierRank(borrowerTier) >= tierRank(requiredTier);
 }
 
 /** How many tier steps the borrower falls short by. 0 when they meet the floor. Feeds F12. */
 export function tierStepsShort(borrowerTier: CreditTier, requiredTier: CreditTier): number {
-  throw new Error('tiers.tierStepsShort not implemented');
+  return Math.max(0, tierRank(requiredTier) - tierRank(borrowerTier));
 }

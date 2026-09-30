@@ -11,5 +11,6 @@ export interface RecommendationEvent {
 }
 
 export function logRecommendation(event: RecommendationEvent): void {
-  throw new Error('logRecommendation not implemented');
+  // V2 replaces this body with a real transport. Nothing else changes.
+  console.debug('[recommendation]', event);
 }
